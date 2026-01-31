@@ -1,2 +1,33 @@
-<p>ticket-list works!</p>
-<p-button label="Check" />
+<div class="card">
+    <p-table [value]="tickets()" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <span class="text-xl font-bold">Tickets</span>
+                <p-button icon="pi pi-refresh" rounded raised />
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th>Category</th>
+                <th>ID</th>
+                <th>Summary</th>
+                <th>Priority</th>
+                <th>Created</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-ticket>
+            <tr>
+                <td>{{ticket.category}}</td>
+                <td>{{ticket.id}}</td>
+                <td>{{ticket.summary}}</td>
+                <td>{{ticket.priority}}</td>
+                <td>{{ticket.created_at}}</td>
+            </tr>
+        </ng-template>
+        <ng-template #footer>
+            <tr>
+                <td colspan="6">Footer here!</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
