@@ -4,7 +4,7 @@ from .models import Ticket
 
 
 class TicketSerializer(serializers.HyperlinkedModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
+    # owner = serializers.ReadOnlyField(source="owner.id")
 
     class Meta:
         model = Ticket
@@ -15,6 +15,7 @@ class TicketSerializer(serializers.HyperlinkedModelSerializer):
             "subject",
             "from_email",
             "message",
+            "created_at",
             "category",
             "priority",
             "summary",
