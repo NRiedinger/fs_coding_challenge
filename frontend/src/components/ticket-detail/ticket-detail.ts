@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TicketService } from '../../services/ticket-service';
@@ -31,13 +31,14 @@ import { TagModule } from 'primeng/tag';
 })
 export class TicketDetail {
     ticketService = inject(TicketService);
-    route = inject(ActivatedRoute);
+    activatedRoute = inject(ActivatedRoute);
+    router = inject(Router);
 
     ticket = signal<Ticket | null>(null);
     reply = signal<string>('');
 
     ngOnInit() {
-        this.route.params.subscribe((params: any) => {
+        this.activatedRoute.params.subscribe((params: any) => {
             this.ticketService.getTicketById(params.id).subscribe((data: any) => {
                 const ticket = data;
                 console.log(ticket);
@@ -58,5 +59,14 @@ export class TicketDetail {
             case 'High':
                 return 'danger';
         }
+    }
+
+    onSend() {
+        const url = `mailto:${this.ticket()?.from_email}?subject=Re: ${this.ticket()?.subject}&body=${this.reply()}`;
+        window.open(url, '_self');
+    }
+
+    onNavigateBack() {
+        this.router.navigate(['/tickets']);
     }
 }

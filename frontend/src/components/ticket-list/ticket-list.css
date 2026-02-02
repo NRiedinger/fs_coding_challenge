@@ -5,3 +5,11 @@ a {
 a:hover {
     font-weight: bold;
 }
+
+::ng-deep app-ticket-list tr.row-ticket {
+    cursor: pointer;
+}
+
+::ng-deep app-ticket-list tr.row-ticket:hover {
+    background-color: #BDDCFF;
+}

@@ -1,44 +1,49 @@
 a.send-reply {
     text-decoration: none;
-    margin-top: .5em;
 }
 
-::ng-deep .p-card-title {
-    font-weight: bold;
-}
-
-::ng-deep .p-card-content {
-    display: flex;
-    flex-direction: column;
-}
-
-::ng-deep .p-card-content > * {
-    margin-top: 10px;
-}
-
-::ng-deep p-panel.details {
-    display: flex;
-    flex-direction: column;
-}
-
-::ng-deep p-panel.details div.details-row {
+::ng-deep app-ticket-detail div.card-header-container {
+    padding: 1.25rem 1.25rem 0 2.5rem;
     display: flex;
     flex-direction: row;
-    margin: 5px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+::ng-deep app-ticket-detail div.card-header-container span {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+::ng-deep app-ticket-detail .p-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+::ng-deep app-ticket-detail p-panel.details {
+    display: flex;
+    flex-direction: column;
+}
+
+::ng-deep app-ticket-detail p-panel.details div.details-row {
+    display: flex;
+    flex-direction: row;
     min-height: 1.5em;
 }
 
-::ng-deep p-panel.details div.details-row > *:nth-child(1) {
+::ng-deep app-ticket-detail p-panel.details div.details-row > *:nth-child(1) {
     min-width: 10em;
 }
 
-::ng-deep p-panel.details div.details-row > span {
+::ng-deep app-ticket-detail p-panel.details div.details-row > span {
     display: inline-flex;
     align-items: center;
 }
 
-::ng-deep p-panel div.p-panel-content {
+::ng-deep app-ticket-detail p-panel div.p-panel-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
 }

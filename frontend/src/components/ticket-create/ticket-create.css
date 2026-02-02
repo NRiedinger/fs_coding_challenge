@@ -1,5 +1,12 @@
-::ng-deep .p-panel-content form > * {
-    margin-top: 1em;
+::ng-deep app-ticket-create .p-panel-content {
+    margin-top: 1.125rem;
+}
+
+::ng-deep app-ticket-create .p-panel-content form {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    gap: .5em;
 }
 
 div.container {

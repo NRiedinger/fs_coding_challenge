@@ -21,12 +21,16 @@
             </tr>
         </ng-template>
         <ng-template #body let-ticket>
-            <tr>
+            <tr class="row-ticket" (click)="onTicketClick(ticket.id)">
                 <td>{{ ticket.id }}</td>
                 <td>
-                    <a href="{{ '/tickets/' + ticket.id }}" style="text-decoration: none">{{
+                    <!-- <a href="{{ '/tickets/' + ticket.id }}" style="text-decoration: none">{{
                         ticket.subject
-                    }}</a>
+                    }}</a> -->
+                    <!-- <p-button variant="text" (onClick)="onTicketClick()" severity="contrast">
+                        {{ ticket.subject }}
+                    </p-button> -->
+                    {{ ticket.subject }}
                 </td>
                 <td>
                     <p-tag

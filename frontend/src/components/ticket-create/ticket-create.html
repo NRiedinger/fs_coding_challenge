@@ -1,6 +1,6 @@
 <p-toast />
 <div class="container">
-    <p-panel style="width: 50%;" header="Create ticket">
+    <p-panel style="width: 100%;" [showHeader]="false">
         <form id="createTicketForm" #createTicketForm="ngForm" (ngSubmit)="onSubmit(createTicketForm)">
             <div>
                 <p-floatlabel variant="on">

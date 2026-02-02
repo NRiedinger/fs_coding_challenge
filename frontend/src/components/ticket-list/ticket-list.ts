@@ -8,6 +8,7 @@ import { TagModule } from 'primeng/tag';
 
 import { TicketService } from '../../services/ticket-service';
 import { Ticket } from '../../models/ticket.model';
+import { Router } from '@angular/router';
 
 interface Column {
     field: string;
@@ -24,6 +25,8 @@ export class TicketList {
     ticketService = inject(TicketService);
     tickets = signal<Ticket[]>([]);
 
+    router = inject(Router);
+
     first: number = 0;
     rows: number = 10;
 
@@ -31,6 +34,10 @@ export class TicketList {
         this.ticketService.getAllTickets().subscribe((data) => {
             this.tickets.set(data as Ticket[]);
         });
+    }
+
+    onTicketClick(id: any) {
+        this.router.navigate(['/tickets', id]);
     }
 
     next() {

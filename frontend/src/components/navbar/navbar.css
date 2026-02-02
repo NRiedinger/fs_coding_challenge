@@ -23,3 +23,7 @@ div.navbar > .container > .item {
 div.navbar a {
     text-decoration: none;
 }
+
+::ng-deep app-navbar .p-component.p-dialog {
+    width: min(60em, 70%);
+}

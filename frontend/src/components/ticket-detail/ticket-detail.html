@@ -1,5 +1,12 @@
 <div>
-    <p-card header="{{ ticket()?.subject }}">
+    <p-card>
+        <ng-template #header>
+            <div class="card-header-container">
+                <span>{{ ticket()?.subject }}</span>
+                <p-button icon="pi pi-arrow-left" severity="info" (onClick)="onNavigateBack()" [rounded]="true">
+                </p-button>
+            </div>
+        </ng-template>
         <p-panel class="details" header="Details">
             <div class="details-row">
                 <span>Priority:</span>
@@ -34,7 +41,6 @@
         </p-panel>
 
         <p-panel class="reply" header="Reply">
-            <!-- <p-iftalabel> -->
             <textarea
                 id="reply-textarea"
                 rows="10"
@@ -43,20 +49,10 @@
                 style="resize: none"
                 [(ngModel)]="reply"
             ></textarea>
-            <!-- <label for="reply-textarea">Reply</label>
-            </p-iftalabel> -->
-            <a
-                class="send-reply"
-                href="{{
-                    `mailto:${ticket()?.from_email}?subject=Re: ${ticket()?.subject}&body=${reply()}`
-                }}"
-                pButton
-                target="_blank"
-                ref="noopener noreferrer"
-            >
+            <p-button class="send-reply" severity="info" (onClick)="onSend()">
                 <i class="pi pi-send" pButtonIcon></i>
                 <span pButtonLabel>Send E-Mail</span>
-            </a>
+            </p-button>
         </p-panel>
     </p-card>
 </div>

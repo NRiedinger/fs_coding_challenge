@@ -51,9 +51,9 @@ export class TicketCreate {
             this.loading.set(true);
             this.ticketService.createTicket(ticket).subscribe({
                 next: (data) => {
-                    console.log('yey');
                     this.showSuccess();
                     this.resetForm(form);
+                    window.location.reload();
                 },
                 error: (err) => {
                     console.error(err);

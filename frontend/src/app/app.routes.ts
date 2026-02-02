@@ -9,10 +9,6 @@ export const routes: Routes = [
         component: TicketList,
     },
     {
-        path: 'tickets/create',
-        component: TicketCreate,
-    },
-    {
         path: 'tickets/:id',
         component: TicketDetail,
     },
