@@ -53,7 +53,7 @@ export class TicketCreate {
                 next: (data) => {
                     this.showSuccess();
                     this.resetForm(form);
-                    window.location.reload();
+                    // window.location.reload();
                 },
                 error: (err) => {
                     console.error(err);

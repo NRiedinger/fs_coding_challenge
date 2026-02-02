@@ -12,6 +12,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { MessageModule } from 'primeng/message';
 import { PanelModule } from 'primeng/panel';
 import { TagModule } from 'primeng/tag';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'app-ticket-detail',
@@ -25,6 +26,7 @@ import { TagModule } from 'primeng/tag';
         MessageModule,
         PanelModule,
         TagModule,
+        SkeletonModule,
     ],
     templateUrl: './ticket-detail.html',
     styleUrl: './ticket-detail.css',
@@ -33,18 +35,18 @@ export class TicketDetail {
     ticketService = inject(TicketService);
     activatedRoute = inject(ActivatedRoute);
     router = inject(Router);
-
+    loading = true;
     ticket = signal<Ticket | null>(null);
     reply = signal<string>('');
 
     ngOnInit() {
+        this.loading = true;
         this.activatedRoute.params.subscribe((params: any) => {
             this.ticketService.getTicketById(params.id).subscribe((data: any) => {
                 const ticket = data;
-                console.log(ticket);
                 this.ticket.set(ticket);
-
                 this.reply.set(ticket.suggested_reply);
+                this.loading = false;
             });
         });
     }

@@ -10,36 +10,57 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         (onPage)="pageChange($event)"
         [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="loading"
     >
         <ng-template #header>
             <tr>
-                <th>ID</th>
-                <th style="width: 60%">Subject</th>
-                <th>Priority</th>
-                <th>Category</th>
-                <th>Created</th>
+                <th style="width: 2%">#</th>
+                <th>Subject</th>
+                <th style="width: 5%">Priority</th>
+                <th style="width: 10%">Category</th>
+                <th style="width: 15%">Created</th>
             </tr>
         </ng-template>
         <ng-template #body let-ticket>
             <tr class="row-ticket" (click)="onTicketClick(ticket.id)">
-                <td>{{ ticket.id }}</td>
                 <td>
-                    <!-- <a href="{{ '/tickets/' + ticket.id }}" style="text-decoration: none">{{
-                        ticket.subject
-                    }}</a> -->
-                    <!-- <p-button variant="text" (onClick)="onTicketClick()" severity="contrast">
+                    @if (loading) {
+                        <p-skeleton />
+                    } @else {
+                        {{ ticket.id }}
+                    }
+                </td>
+                <td>
+                    @if (loading) {
+                        <p-skeleton />
+                    } @else {
                         {{ ticket.subject }}
-                    </p-button> -->
-                    {{ ticket.subject }}
+                    }
                 </td>
                 <td>
-                    <p-tag
-                        [value]="ticket.priority"
-                        [severity]="getPrioritySeverity(ticket.priority)"
-                    />
+                    @if (loading) {
+                        <p-skeleton />
+                    } @else {
+                        <p-tag
+                            [value]="ticket.priority"
+                            [severity]="getPrioritySeverity(ticket.priority)"
+                        />
+                    }
                 </td>
-                <td>{{ ticket.category }}</td>
-                <td>{{ ticket.created_at | date: 'medium' }}</td>
+                <td>
+                    @if (loading) {
+                        <p-skeleton />
+                    } @else {
+                        {{ ticket.category }}
+                    }
+                </td>
+                <td>
+                    @if (loading) {
+                        <p-skeleton />
+                    } @else {
+                        {{ ticket.created_at | date: 'medium' }}
+                    }
+                </td>
             </tr>
         </ng-template>
     </p-table>

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { SkeletonModule } from 'primeng/skeleton';
 
 import { TicketService } from '../../services/ticket-service';
 import { Ticket } from '../../models/ticket.model';
@@ -17,22 +18,32 @@ interface Column {
 
 @Component({
     selector: 'app-ticket-list',
-    imports: [TableModule, FormsModule, ButtonModule, TagModule, CommonModule],
+    imports: [
+        TableModule,
+        FormsModule,
+        ButtonModule,
+        TagModule,
+        CommonModule,
+        SkeletonModule,
+    ],
     templateUrl: './ticket-list.html',
     styleUrl: './ticket-list.css',
 })
 export class TicketList {
     ticketService = inject(TicketService);
     tickets = signal<Ticket[]>([]);
-
+    loading = true;
     router = inject(Router);
 
     first: number = 0;
     rows: number = 10;
 
     ngOnInit() {
+        this.loading = true;
+        this.tickets.set(Array.from({length:10}).map((_, i) => ({} as Ticket)));
         this.ticketService.getAllTickets().subscribe((data) => {
             this.tickets.set(data as Ticket[]);
+            this.loading = false;
         });
     }
 

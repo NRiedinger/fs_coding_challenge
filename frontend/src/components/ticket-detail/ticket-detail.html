@@ -2,42 +2,73 @@
     <p-card>
         <ng-template #header>
             <div class="card-header-container">
-                <span>{{ ticket()?.subject }}</span>
-                <p-button icon="pi pi-arrow-left" severity="info" (onClick)="onNavigateBack()" [rounded]="true">
+                <div>
+                    @if (loading) {
+                        <p-skeleton width="20em" height="1.5em"></p-skeleton>
+                    } @else {
+                        <span>{{ ticket()?.subject }}</span>
+                    }
+                </div>
+
+                <p-button
+                    icon="pi pi-arrow-left"
+                    severity="info"
+                    (onClick)="onNavigateBack()"
+                    [rounded]="true"
+                >
                 </p-button>
             </div>
         </ng-template>
         <p-panel class="details" header="Details">
             <div class="details-row">
                 <span>Priority:</span>
-                <p-tag
-                    [value]="ticket() ? ticket()?.priority : ''"
-                    [severity]="getPrioritySeverity(ticket()?.priority)"
-                />
+                @if (loading) {
+                    <p-skeleton width="3em" height="1.5em"></p-skeleton>
+                } @else {
+                    <p-tag
+                        [value]="ticket() ? ticket()?.priority : ''"
+                        [severity]="getPrioritySeverity(ticket()?.priority)"
+                    />
+                }
             </div>
             <div class="details-row">
                 <span>Category:</span>
-                <span>{{ ticket()?.category }}</span>
+                @if (loading) {
+                    <p-skeleton width="5em" height="1.5em"></p-skeleton>
+                } @else {
+                    <span>{{ ticket()?.category }}</span>
+                }
             </div>
             <div class="details-row">
                 <span>Author:</span>
-                <a href="{{ `mailto:${ticket()?.from_email}` }}" target="_blank">{{
-                    ticket()?.from_email
-                }}</a>
+                @if (loading) {
+                    <p-skeleton width="10em" height="1.5em"></p-skeleton>
+                } @else {
+                    <a href="{{ `mailto:${ticket()?.from_email}` }}" target="_blank">{{
+                        ticket()?.from_email
+                    }}</a>
+                }
             </div>
             <div class="details-row">
                 <span>Created:</span>
-                <span>{{ ticket()?.created_at | date: 'medium' }}</span>
+                @if (loading) {
+                    <p-skeleton width="10em" height="1.5em"></p-skeleton>
+                } @else {
+                    <span>{{ ticket()?.created_at | date: 'medium' }}</span>
+                }
             </div>
         </p-panel>
 
         <p-panel class="message" header="Message">
-            <p-message severity="secondary" icon="pi pi-info-circle" styleClass="h-full">{{
-                'Summary: ' + ticket()?.summary
-            }}</p-message>
-            <p class="m-0">
-                {{ ticket()?.message }}
-            </p>
+            @if (loading) {
+                <p-skeleton width="20em" height="1.6em"></p-skeleton>
+                <p-skeleton width="30em" height="1.6em"></p-skeleton>
+            } @else {
+                <p-message severity="secondary" icon="pi pi-info-circle" styleClass="h-full">{{
+                    'Summary: ' + ticket()?.summary
+                }}</p-message>
+                <p>{{ ticket()?.message }}</p>
+            }
         </p-panel>
 
         <p-panel class="reply" header="Reply">
