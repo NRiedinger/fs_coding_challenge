@@ -6,6 +6,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { SkeletonModule } from 'primeng/skeleton';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 import { TicketService } from '../../services/ticket-service';
 import { Ticket } from '../../models/ticket.model';
@@ -25,6 +26,7 @@ interface Column {
         TagModule,
         CommonModule,
         SkeletonModule,
+        MultiSelectModule,
     ],
     templateUrl: './ticket-list.html',
     styleUrl: './ticket-list.css',
@@ -38,9 +40,24 @@ export class TicketList {
     first: number = 0;
     rows: number = 10;
 
+    priorityOptions = [
+        { label: 'Low', value: 'Low' },
+        { label: 'Medium', value: 'Medium' },
+        { label: 'High', value: 'High' },
+    ];
+
+    categoryOptions = [
+        { label: 'Billing', value: 'Billing' },
+        { label: 'Bug', value: 'Bug' },
+        { label: 'Feature', value: 'Feature' },
+        { label: 'Account', value: 'Account' },
+        { label: 'Other', value: 'Other' },
+    ];
+
     ngOnInit() {
         this.loading = true;
-        this.tickets.set(Array.from({length:10}).map((_, i) => ({} as Ticket)));
+        this.tickets.set(Array.from({ length: 10 }).map((_, i) => ({}) as Ticket));
+
         this.ticketService.getAllTickets().subscribe((data) => {
             this.tickets.set(data as Ticket[]);
             this.loading = false;
