@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 import { PanelModule } from 'primeng/panel';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -30,15 +30,17 @@ import { TicketService } from '../../services/ticket-service/ticket-service';
     styleUrl: './ticket-create.css',
 })
 export class TicketCreate {
-    ticketService = inject(TicketService);
-    messageService = inject(MessageService);
-
     subject = '';
     email = '';
     message = '';
 
     loading = signal(false);
     submitted = false;
+
+    constructor(
+        private ticketService: TicketService,
+        private messageService: MessageService,
+    ) {}
 
     onSubmit(form: any) {
         if (form.valid) {
@@ -55,7 +57,6 @@ export class TicketCreate {
                     this.resetForm(form);
                 },
                 error: (err) => {
-                    console.error(err);
                     this.showError();
                     this.resetForm(form);
                 },

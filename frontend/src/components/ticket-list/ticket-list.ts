@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -37,11 +37,8 @@ interface Column {
     styleUrl: './ticket-list.css',
 })
 export class TicketList {
-    ticketService = inject(TicketService);
-    messageService = inject(MessageService);
     tickets = signal<Ticket[]>([]);
     loading = true;
-    router = inject(Router);
 
     first: number = 0;
     rows: number = 10;
@@ -60,6 +57,12 @@ export class TicketList {
         { label: 'Other', value: 'Other' },
     ];
 
+    constructor(
+        private ticketService: TicketService,
+        private messageService: MessageService,
+        private router: Router,
+    ) {}
+
     ngOnInit() {
         this.loading = true;
         this.tickets.set(Array.from({ length: 10 }).map((_, i) => ({}) as Ticket));
@@ -70,7 +73,7 @@ export class TicketList {
                 this.loading = false;
             },
             error: (error) => {
-                console.error(error);
+                // console.error(error);
                 this.showError();
                 this.loading = false;
             },

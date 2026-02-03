@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Ticket } from '../../models/ticket.model';
 
@@ -6,7 +6,7 @@ import { Ticket } from '../../models/ticket.model';
     providedIn: 'root',
 })
 export class TicketService {
-    private http = inject(HttpClient);
+    constructor(private http: HttpClient) {}
 
     public getAllTickets() {
         return this.http.get('/api/tickets/');

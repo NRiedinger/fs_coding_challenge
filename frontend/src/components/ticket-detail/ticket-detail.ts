@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -36,13 +36,16 @@ import { ToastModule } from 'primeng/toast';
     styleUrl: './ticket-detail.css',
 })
 export class TicketDetail {
-    ticketService = inject(TicketService);
-    activatedRoute = inject(ActivatedRoute);
-    messageService = inject(MessageService);
-    router = inject(Router);
     loading = true;
     ticket = signal<Ticket | null>(null);
     reply = signal<string>('');
+
+    constructor(
+        private ticketService: TicketService,
+        private activatedRoute: ActivatedRoute,
+        private messageService: MessageService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.loading = true;
@@ -55,7 +58,7 @@ export class TicketDetail {
                     this.loading = false;
                 },
                 error: (error) => {
-                    console.error(error);
+                    // console.error(error);
                     this.showError();
                     this.loading = false;
                 },
