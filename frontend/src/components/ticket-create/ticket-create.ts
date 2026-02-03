@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 
 import { PanelModule } from 'primeng/panel';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -37,6 +37,8 @@ export class TicketCreate {
     loading = signal(false);
     submitted = false;
 
+    @Output() created = new EventEmitter<void>();
+
     constructor(
         private ticketService: TicketService,
         private messageService: MessageService,
@@ -53,6 +55,7 @@ export class TicketCreate {
             this.loading.set(true);
             this.ticketService.createTicket(ticket).subscribe({
                 next: (data) => {
+                    this.created.emit();
                     this.showSuccess();
                     this.resetForm(form);
                 },

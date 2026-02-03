@@ -1,4 +1,33 @@
 <p-toast position="bottom-center" />
+
+<p-dialog
+    #createdialog
+    [(visible)]="create_dialog_visible"
+    [modal]="true"
+    style="width: 50em"
+    position="top"
+    [draggable]="false"
+>
+    <ng-template #header>
+        <h2>Create ticket</h2>
+    </ng-template>
+    @if (create_dialog_visible) {
+        <app-ticket-create (created)="updateData()" />
+    }
+</p-dialog>
+
+<div class="topbar">
+    <div class="container">
+        <div class="item">
+            <p-button class="create-ticket" severity="info" (onClick)="onCreateClick()">
+                <i class="pi pi-sparkles" pButtonIcon></i>
+                <span pButtonLabel>Create</span>
+            </p-button>
+        </div>
+
+    </div>
+</div>
+
 <div class="card">
     <p-table
         #dt

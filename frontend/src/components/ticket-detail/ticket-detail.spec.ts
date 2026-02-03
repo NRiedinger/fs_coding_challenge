@@ -78,7 +78,7 @@ describe('TicketDetail', () => {
         expect(component.getPrioritySeverity('Low')).toBe('success');
         expect(component.getPrioritySeverity('Medium')).toBe('warn');
         expect(component.getPrioritySeverity('High')).toBe('danger');
-        expect(component.getPrioritySeverity(undefined)).toBe('success'); // default
+        expect(component.getPrioritySeverity(undefined)).toBe('success');
     });
 
     it('should navigate back', () => {
@@ -92,7 +92,6 @@ describe('TicketDetail', () => {
 
         component.ngOnInit();
 
-        // Mock window.open
         const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
 
         component.onSend();

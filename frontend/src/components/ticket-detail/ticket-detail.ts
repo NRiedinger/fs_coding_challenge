@@ -44,7 +44,7 @@ export class TicketDetail {
         private ticketService: TicketService,
         private activatedRoute: ActivatedRoute,
         private messageService: MessageService,
-        private router: Router
+        private router: Router,
     ) {}
 
     ngOnInit() {
@@ -58,7 +58,6 @@ export class TicketDetail {
                     this.loading = false;
                 },
                 error: (error) => {
-                    // console.error(error);
                     this.showError();
                     this.loading = false;
                 },

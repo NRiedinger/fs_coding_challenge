@@ -9,7 +9,6 @@ describe('TicketCreate', () => {
     let ticketServiceMock: Partial<TicketService>;
     let messageServiceMock: Partial<MessageService>;
 
-    // Mock-Formular
     const mockForm = {
         valid: true,
         reset: vi.fn(),
@@ -29,7 +28,6 @@ describe('TicketCreate', () => {
             messageServiceMock as MessageService,
         );
 
-        // Initialwerte
         component.subject = 'Test Subject';
         component.email = 'test@example.com';
         component.message = 'Test Message';

@@ -13,6 +13,8 @@ import { MessageService } from 'primeng/api';
 import { TicketService } from '../../services/ticket-service/ticket-service';
 import { Ticket } from '../../models/ticket.model';
 import { Router } from '@angular/router';
+import { TicketCreate } from '../ticket-create/ticket-create';
+import { DialogModule } from 'primeng/dialog';
 
 interface Column {
     field: string;
@@ -22,6 +24,8 @@ interface Column {
 @Component({
     selector: 'app-ticket-list',
     imports: [
+        TicketCreate,
+        DialogModule,
         TableModule,
         FormsModule,
         ButtonModule,
@@ -39,6 +43,7 @@ interface Column {
 export class TicketList {
     tickets = signal<Ticket[]>([]);
     loading = true;
+    create_dialog_visible = false;
 
     first: number = 0;
     rows: number = 10;
@@ -64,8 +69,12 @@ export class TicketList {
     ) {}
 
     ngOnInit() {
-        this.loading = true;
         this.tickets.set(Array.from({ length: 10 }).map((_, i) => ({}) as Ticket));
+        this.updateData();
+    }
+
+    updateData() {
+        this.loading = true;
 
         this.ticketService.getAllTickets().subscribe({
             next: (data) => {
@@ -73,7 +82,6 @@ export class TicketList {
                 this.loading = false;
             },
             error: (error) => {
-                // console.error(error);
                 this.showError();
                 this.loading = false;
             },
@@ -82,6 +90,10 @@ export class TicketList {
 
     onTicketClick(id: any) {
         this.router.navigate(['/tickets', id]);
+    }
+
+    onCreateClick() {
+        this.create_dialog_visible = true;
     }
 
     next() {

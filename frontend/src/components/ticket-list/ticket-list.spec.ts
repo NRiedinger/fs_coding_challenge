@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { TicketList } from './ticket-list';
 import { Ticket } from '../../models/ticket.model';
@@ -32,17 +32,12 @@ describe('TicketList', () => {
             navigate: vi.fn(),
         };
 
-        // Component über Constructor instanziieren
         component = new TicketList(
             ticketServiceMock as TicketService,
             messageServiceMock as MessageService,
             routerMock as Router,
         );
     });
-
-    // it('should create', () => {
-    //     expect(component).toBeTruthy();
-    // });
 
     it('should load tickets on init', () => {
         (ticketServiceMock.getAllTickets as any).mockReturnValue(of(mockTickets));
