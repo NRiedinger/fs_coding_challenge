@@ -37,6 +37,30 @@ which analyzes every newly created ticket.
     ```shell
     pip install django djangorestframework psycopg2 django-environ openai-agents
     ```
+
+5. Setup database \
+    Create PostgreSQL database by executing in psql-shell:
+    ```sql
+    /* database name must match your settings.py */
+    CREATE DATABASE tickets_db;
+
+    /* username and password must match your settings.py */
+    CREATE USER admin WITH PASSWORD 'admin';
+
+    /* needed to create database during testing */
+    ALTER USER admin CREATEDB; 
+
+    /* grant privileges for tickets_db */
+    GRANT ALL PRIVILEGES ON DATABASE tickets_db TO admin;
+    ALTER DATABASE tickets_db OWNER TO admin;
+    ```
+
+    Create datatables for tickets:
+
+    ```shell
+    python manage.py makemigrations tickets
+    python manage.py migrate tickets
+    ```
     
 5. Make sure the environment variable `OPENAI_API_KEY` is set.
 
